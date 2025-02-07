@@ -156,7 +156,7 @@ struct Line {
     }
 };
 
-void gaussian_lacing() {
+/*void gaussian_lacing() {
     long long n;
     cin >> n;
     ll res = 0;
@@ -175,7 +175,7 @@ void gaussian_lacing() {
     ll inn = (res - out + 2) / 2;
 
     cout << inn << ' ' << out << endl;
-}
+}*/
 /*void samurai2d() {
     long double a, b, p1x, p2x, p1y, p2y;
     cin >> a >> b;
