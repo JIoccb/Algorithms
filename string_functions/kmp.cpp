@@ -1,4 +1,3 @@
-#include <iostream>
 #include <vector>
 #include <string>
 
@@ -43,17 +42,4 @@ vector<int> kmp_search(const string& a, const string& b) {
     }
 
     return positions;
-}
-
-int main() {
-    string a, b;
-    getline(cin, a);
-    getline(cin, b);
-
-    const vector<int>& pos = kmp_search(a, b);
-    cout << pos.size() << endl;
-    for (const int p : pos) {
-        cout << p << " ";
-    }
-    return 0;
 }
