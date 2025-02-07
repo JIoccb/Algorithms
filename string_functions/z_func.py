@@ -30,9 +30,3 @@ def kmp_search(a, b):
 
     return positions, count
 
-
-a = input()
-b = input()
-pos, count = kmp_search(a, b)
-print(count)
-print(*pos)
