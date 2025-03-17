@@ -156,15 +156,10 @@ struct Line {
     }
 };
 
-/*void gaussian_lacing() {
-    long long n;
-    cin >> n;
+ld gaussian_lacing(ll n , vector<pair<ll ,ll>> points, ll &out, ll &inn) {
     ll res = 0;
-    ll out = 0;
+    out = 0;
     vector<pair<ll,ll> > arr(n);
-    for (long long i = 0; i < n; i++) {
-        cin >> arr[i].first >> arr[i].second;
-    }
     for (long long i = 1; i < n; i++) {
         res += arr[i].first * arr[i - 1].second - arr[i - 1].first * arr[i].second;
         out += gcd(abs(arr[i - 1].first - arr[i].first), abs(abs(arr[i - 1].second - arr[i].second)));
@@ -172,10 +167,10 @@ struct Line {
     res += arr[0].first * arr[n - 1].second - arr[n - 1].first * arr[0].second;
     res = abs(res);
     out += gcd(abs(arr[0].first - arr[n - 1].first), abs(abs(arr[0].second - arr[n - 1].second)));
-    ll inn = (res - out + 2) / 2;
+    inn = (res - out + 2) / 2;
 
-    cout << inn << ' ' << out << endl;
-}*/
+    return res;
+}
 /*void samurai2d() {
     long double a, b, p1x, p2x, p1y, p2y;
     cin >> a >> b;
