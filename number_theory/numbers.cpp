@@ -11,6 +11,7 @@ bool isPrime(ll n) {
         if (n % i == 0) return false;
     return true;
 }
+
 ll modInv(ll a, ll m) {
     ll m0 = m;
     ll x0 = 0, x1 = 1;
@@ -35,6 +36,7 @@ ll modInv(ll a, ll m) {
 
     return x1;
 }
+
 __int128 fastpow(__int128 base, __int128 exp, __int128 mod) {
     __int128 result = 1;
     while (exp) {
