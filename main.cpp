@@ -7,6 +7,9 @@ using namespace std;
 #define ll long long
 #define ld long double
 #define ull unsigned long long
+#define u32 uint32_t
+
+//#define _DEBUG
 
 #define PI acos(-1)
 #define inf LONG_LONG_MAX
@@ -26,8 +29,12 @@ int main() {
     ios::sync_with_stdio(false);
     cin.tie(nullptr);
     cout.tie(nullptr);
-    int t = 1;
-    // cin >> t;
+    #if defined _DEBUG
+        freopen("input.txt", "r", stdin);
+        freopen("output.txt", "w", stdout);
+    #endif
+    int t;
+    cin >> t;
     while (t--) {
         solution();
     }
