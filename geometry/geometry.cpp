@@ -16,6 +16,13 @@ using namespace std;
 #define print(x) for(auto element:x) cout << element << " ";
 #define endl "\n"
 
+ll gcd(ll a, ll b) {
+    if (a < b) swap(a, b);
+    while (b) {
+        a = exchange(b, a % b);
+    }
+    return a;
+}
 
 struct Point {
     ll x, y;
@@ -155,3 +162,19 @@ struct Line {
         return os;
     }
 };
+
+ld gaussian_lacing(ll n, vector<pair<ll,ll> > points, ll &out, ll &inn) {
+    ll res = 0;
+    out = 0;
+    for (ll i = 1; i < n; i++) {
+        res += points[i].first * points[i - 1].second - points[i - 1].first * points[i].second;
+        out += gcd(abs(points[i - 1].first - points[i].first), abs(abs(points[i - 1].second - points[i].second)));
+    }
+    res += points[0].first * points[n - 1].second - points[n - 1].first * points[0].second;
+    res = abs(res);
+    out += gcd(abs(points[0].first - points[n - 1].first), abs(abs(points[0].second - points[n - 1].second)));
+    inn = (res - out + 2) / 2;
+
+    return res;
+}
+
