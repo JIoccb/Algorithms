@@ -12,12 +12,37 @@ bool isPrime(ll n) {
     return true;
 }
 
+ll modInv(ll a, ll m) {
+    ll m0 = m;
+    ll x0 = 0, x1 = 1;
+
+    if (m == 1)
+        return 0;
+
+    while (a > 1) {
+        ll q = a / m;
+        ll t = m;
+
+        m = a % m;
+        a = t;
+
+        t = x0;
+        x0 = x1 - q * x0;
+        x1 = t;
+    }
+
+    if (x1 < 0)
+        x1 += m0;
+
+    return x1;
+}
+
 __int128 fastpow(__int128 base, __int128 exp, __int128 mod) {
     __int128 result = 1;
-    while (exp > 0) {
-        if (exp % 2 == 1) result = result * base % mod;
+    while (exp) {
+        if (exp & 1) result = result * base % mod;
         base = base * base % mod;
-        exp /= 2;
+        exp >>= 1;
     }
     return result;
 }
@@ -166,41 +191,3 @@ ll fibonacci(ll n) {
     long double five = sqrtl(5);
     return static_cast<long long>(1 / five * (pow((1 + five) / 2, n) - pow((1 - five) / 2, n)));
 }
-
-/*void knights() {
-    ll n;
-    cin >> n;
-    bitset<100000> r;
-    int start = 0;
-    bool inn = false;
-    for (int i = 0; i < n; i++) {
-        bool t;
-        cin >> t;
-        if (!inn && t) {
-            start = i;
-            inn = true;
-        }
-        r[i] = t;
-    }
-    if (!inn) {
-        cout << "NO" << endl;
-        return;
-    }
-    ll sas = 0;
-    vector<ll> divs = divisors(n, sas);
-    for (ll d: divs) {
-        int count = 1;
-        for (ll j = start + d; j != start; j = (j + d) % n) {
-            if (!r[j]) {
-                count = 0;
-                break;
-            }
-            count++;
-        }
-        if (count >= 3) {
-            cout << "YES" << endl;
-            return;
-        }
-    }
-    cout << "NO" << endl;
-}*/
