@@ -2,43 +2,42 @@
 
 using namespace std;
 
-typedef long long ll;
+#define ll long long;
 
-tuple<int, vector<int>> continued_fraction_sqrt(int N) {
-    int m = 0, d = 1, a0 = sqrt(N);
-    if (a0 * a0 == N) return {a0, {}};  // Полный квадрат
-
-    vector<int> period;
-    int a = a0;
+pair<ll,ll> pell_fundamental(int N) {
+    ll a0 = floor(sqrt(N));
+    if (a0 * a0 == N) {
+        return {1, 0};
+    }
+    ll m = 0, d = 1, a = a0;
+    vector<ll> period;
     do {
         m = d * a - m;
-        d = (N - m * m) / d;
+        d = (N - m*m) / d;
         a = (a0 + m) / d;
         period.push_back(a);
-    } while (a != 2 * a0);
-
-    return {a0, period};
-}
-
-vector<pair<ll, ll>> find_pell_solutions(int N, int limit) {
-    auto [a0, period] = continued_fraction_sqrt(N);
-    if (period.empty()) return {};  // Нет решений
-
-    vector<pair<ll, ll>> solutions;
-    ll p0 = 1, q0 = 0, p1 = a0, q1 = 1;
-    if (p1 * p1 - N * q1 * q1 == 1) solutions.emplace_back(p1, q1);
-
-    for (int i = 0; solutions.size() < limit; i++) {
-        int a = period[i % period.size()];
-        ll p2 = a * p1 + p0;
-        ll q2 = a * q1 + q0;
-        if (p2 > 1e9) break;
-        if (p2 * p2 - N * q2 * q2 == 1) {
-            solutions.emplace_back(p2, q2);
-        }
-        p0 = p1; q0 = q1;
-        p1 = p2; q1 = q2;
+    } while (a != 2*a0);
+    int L = period.size();
+    
+    ll p_nm2 = 0, p_nm1 = 1, p_i;
+    ll q_nm2 = 1, q_nm1 = 0, q_i;
+    vector<ll> A;
+    A.push_back(a0);
+    A.insert(A.end(), period.begin(), period.end());
+    if (L % 2 == 1) {
+        A.insert(A.end(), period.begin(), period.end());
     }
-    return solutions;
-}
 
+    int M = A.size();
+    for (int i = 0; i < M; i++) {
+        ll ai = A[i];
+        p_i = ai * p_nm1 + p_nm2;
+        q_i = ai * q_nm1 + q_nm2;
+        if (p_i*p_i - static_cast<ll>(N)*q_i*q_i == 1) {
+            return {p_i, q_i};
+        }
+        p_nm2 = p_nm1; p_nm1 = p_i;
+        q_nm2 = q_nm1; q_nm1 = q_i;
+    }
+    return {-1,-1};
+}
